@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Mail, Send } from 'lucide-react';
+import { Mail, Send, User } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { waitlistAPI } from '../services/api';
 
