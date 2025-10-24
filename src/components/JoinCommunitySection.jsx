@@ -224,10 +224,11 @@ export default function JoinCommunitySection() {
           </p>
           <button 
             onClick={handleJoinCommunity}
-            className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-11 bg-white text-gray-900 hover:bg-gray-200 px-10 py-4 rounded-full text-lg font-medium transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center justify-center gap-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-white text-gray-900 hover:bg-gray-200 px-6 sm:px-10 py-3 sm:py-4 rounded-full text-sm sm:text-lg font-medium transition-all duration-300 hover:scale-105 w-full sm:w-auto"
           >
-            I Understand & Accept - Take Me to the Community
-            <ArrowRight className="h-5 w-5" />
+            <span className="hidden sm:inline">I Understand & Accept - Take Me to the Community</span>
+            <span className="sm:hidden">Join the Community</span>
+            <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
           </button>
         </div>
       </div>
