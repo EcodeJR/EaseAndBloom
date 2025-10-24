@@ -124,15 +124,15 @@ const Stories = () => {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Story Management</h1>
+        <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Story Management</h1>
         <p className="mt-1 text-sm text-gray-500">
           Review and moderate anonymous story submissions
         </p>
       </div>
 
       {/* Status Tabs */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
+      <div className="border-b border-gray-200 overflow-x-auto">
+        <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max">
           {statusTabs.map((tab) => (
             <button
               key={tab.key}
@@ -161,14 +161,14 @@ const Stories = () => {
             {stories.map((story) => (
               <li key={story._id}>
                 <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center">
-                        <h3 className="text-lg font-medium text-gray-900 truncate">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                        <h3 className="text-base sm:text-lg font-medium text-gray-900 truncate">
                           {story.title}
                         </h3>
                         <span
-                          className={`ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusColor(
+                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium self-start ${getStatusColor(
                             story.status
                           )}`}
                         >
@@ -176,14 +176,18 @@ const Stories = () => {
                         </span>
                       </div>
                       
-                      <div className="mt-1 flex items-center text-sm text-gray-500">
-                        <User className="h-4 w-4 mr-1" />
-                        <span>{story.submitterName}</span>
-                        <span className="mx-2">•</span>
-                        <Calendar className="h-4 w-4 mr-1" />
-                        <span>{getRelativeTime(story.createdAt)}</span>
-                        <span className="mx-2">•</span>
-                        <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs">
+                      <div className="mt-1 flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 gap-1 sm:gap-0">
+                        <div className="flex items-center">
+                          <User className="h-4 w-4 mr-1" />
+                          <span className="truncate">{story.submitterName}</span>
+                        </div>
+                        <span className="hidden sm:inline mx-2">•</span>
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-1" />
+                          <span>{getRelativeTime(story.createdAt)}</span>
+                        </div>
+                        <span className="hidden sm:inline mx-2">•</span>
+                        <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs inline-block">
                           {story.category}
                         </span>
                       </div>
@@ -195,7 +199,7 @@ const Stories = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center justify-end sm:justify-start space-x-3 sm:space-x-2 flex-shrink-0">
                       <button
                         onClick={() => openStoryModal(story)}
                         className="text-indigo-600 hover:text-indigo-900"
@@ -302,7 +306,7 @@ const Stories = () => {
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={closeModal}></div>
             
-            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+            <div className="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl w-full sm:w-full mx-4 sm:mx-0">
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-medium text-gray-900">
@@ -321,14 +325,18 @@ const Stories = () => {
                     <h4 className="text-xl font-semibold text-gray-900">
                       {selectedStory.title}
                     </h4>
-                    <div className="mt-2 flex items-center text-sm text-gray-500">
-                      <User className="h-4 w-4 mr-1" />
-                      <span>{selectedStory.submitterName}</span>
-                      <span className="mx-2">•</span>
-                      <Calendar className="h-4 w-4 mr-1" />
-                      <span>{formatDate(selectedStory.createdAt)}</span>
-                      <span className="mx-2">•</span>
-                      <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs">
+                    <div className="mt-2 flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 gap-2 sm:gap-0">
+                      <div className="flex items-center">
+                        <User className="h-4 w-4 mr-1" />
+                        <span>{selectedStory.submitterName}</span>
+                      </div>
+                      <span className="hidden sm:inline mx-2">•</span>
+                      <div className="flex items-center">
+                        <Calendar className="h-4 w-4 mr-1" />
+                        <span>{formatDate(selectedStory.createdAt)}</span>
+                      </div>
+                      <span className="hidden sm:inline mx-2">•</span>
+                      <span className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs inline-block">
                         {selectedStory.category}
                       </span>
                     </div>

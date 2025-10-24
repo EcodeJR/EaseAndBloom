@@ -51,7 +51,7 @@ const emailTemplates = {
           <p><strong>Category:</strong> ${storyData.category}</p>
           <p><strong>Submitter:</strong> ${storyData.submitterName}</p>
           <p><strong>Email:</strong> ${storyData.submitterEmail || 'Not provided'}</p>
-          <p><strong>Submitted:</strong> ${new Date(storyData.submittedAt).toLocaleDateString()}</p>
+          <p><strong>Submitted:</strong> ${new Date(storyData.createdAt).toLocaleDateString()}</p>
         </div>
         
         <div style="background-color: #e8f4fd; padding: 15px; border-radius: 5px; margin: 20px 0;">

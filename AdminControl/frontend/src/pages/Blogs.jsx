@@ -192,16 +192,16 @@ const Blogs = () => {
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Blog Management</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Blog Management</h1>
           <p className="mt-1 text-sm text-gray-500">
             Create, edit, and manage your blog posts
           </p>
         </div>
         <Link
           to="/admin/blogs/new"
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full sm:w-auto"
         >
           <Plus className="h-4 w-4 mr-2" />
           New Blog Post
@@ -210,10 +210,10 @@ const Blogs = () => {
 
       {/* Search and Filters */}
       <div className="bg-white p-4 rounded-lg shadow">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Search */}
-          <div className="md:col-span-2">
-            <form onSubmit={handleSearch} className="flex">
+          <div className="sm:col-span-2">
+            <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
               <div className="relative flex-1">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Search className={`h-5 w-5 ${isSearching ? 'text-indigo-500 animate-pulse' : 'text-gray-400'}`} />
@@ -233,7 +233,7 @@ const Blogs = () => {
               </div>
               <button
                 type="submit"
-                className="ml-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="sm:ml-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full sm:w-auto"
               >
                 Search
               </button>
@@ -275,15 +275,15 @@ const Blogs = () => {
             {blogs.map((blog) => (
               <li key={blog._id}>
                 <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex-1 min-w-0 flex">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex-1 min-w-0 flex flex-col sm:flex-row">
                       {/* Blog Image */}
                       {blog.featuredImage?.url && (
-                        <div className="flex-shrink-0 mr-4">
+                        <div className="flex-shrink-0 sm:mr-4 mb-3 sm:mb-0">
                           <img
                             src={blog.featuredImage.url}
                             alt={blog.title}
-                            className="h-16 w-24 object-cover rounded-lg"
+                            className="h-32 sm:h-16 w-full sm:w-24 object-cover rounded-lg"
                           />
                         </div>
                       )}

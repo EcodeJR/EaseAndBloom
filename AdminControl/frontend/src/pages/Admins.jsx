@@ -158,16 +158,16 @@ const Admins = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Admin Management</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Admin Management</h1>
           <p className="mt-1 text-sm text-gray-500">
             Manage admin accounts and permissions
           </p>
         </div>
         <button
           onClick={openCreateModal}
-          className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-full sm:w-auto"
         >
           <Plus className="h-4 w-4 mr-2" />
           Add Admin
@@ -181,8 +181,8 @@ const Admins = () => {
             {admins.map((admin) => (
               <li key={admin._id}>
                 <div className="px-4 py-4 sm:px-6">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div className="flex items-start sm:items-center flex-1 min-w-0">
                       <div className="flex-shrink-0">
                         <div className="h-10 w-10 bg-indigo-500 rounded-full flex items-center justify-center">
                           <span className="text-white text-sm font-medium">
@@ -190,33 +190,37 @@ const Admins = () => {
                           </span>
                         </div>
                       </div>
-                      <div className="ml-4">
-                        <div className="flex items-center">
-                          <h3 className="text-lg font-medium text-gray-900">
+                      <div className="ml-4 flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                          <h3 className="text-base sm:text-lg font-medium text-gray-900 truncate">
                             {admin.name}
                           </h3>
-                          <span
-                            className={`ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(
-                              admin.role
-                            )}`}
-                          >
-                            {admin.role.replace('_', ' ')}
-                          </span>
-                          <span
-                            className={`ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              admin.isActive
-                                ? 'bg-green-100 text-green-800'
-                                : 'bg-red-100 text-red-800'
-                            }`}
-                          >
-                            {admin.isActive ? 'Active' : 'Inactive'}
-                          </span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getRoleColor(
+                                admin.role
+                              )}`}
+                            >
+                              {admin.role.replace('_', ' ')}
+                            </span>
+                            <span
+                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                                admin.isActive
+                                  ? 'bg-green-100 text-green-800'
+                                  : 'bg-red-100 text-red-800'
+                              }`}
+                            >
+                              {admin.isActive ? 'Active' : 'Inactive'}
+                            </span>
+                          </div>
                         </div>
-                        <div className="mt-1 flex items-center text-sm text-gray-500">
-                          <Mail className="h-4 w-4 mr-1" />
-                          <span>{admin.email}</span>
-                          <span className="mx-2">•</span>
-                          <span>Created {formatDate(admin.createdAt)}</span>
+                        <div className="mt-1 flex flex-col sm:flex-row sm:items-center text-sm text-gray-500 gap-1 sm:gap-0">
+                          <div className="flex items-center">
+                            <Mail className="h-4 w-4 mr-1" />
+                            <span className="truncate">{admin.email}</span>
+                          </div>
+                          <span className="hidden sm:inline mx-2">•</span>
+                          <span className="text-xs sm:text-sm">Created {formatDate(admin.createdAt)}</span>
                         </div>
                         <div className="mt-1 flex flex-wrap gap-2">
                           {admin.permissions.canManageBlogs && (
@@ -247,13 +251,13 @@ const Admins = () => {
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center justify-end sm:justify-start space-x-3 sm:space-x-2 flex-shrink-0">
                       <button
                         onClick={() => handleToggleStatus(admin._id, admin.isActive)}
-                        className={`${
+                        className={`p-2 rounded-md ${
                           admin.isActive
-                            ? 'text-red-600 hover:text-red-900'
-                            : 'text-green-600 hover:text-green-900'
+                            ? 'text-red-600 hover:text-red-900 hover:bg-red-50'
+                            : 'text-green-600 hover:text-green-900 hover:bg-green-50'
                         }`}
                         title={admin.isActive ? 'Deactivate' : 'Activate'}
                       >
@@ -266,7 +270,7 @@ const Admins = () => {
                       
                       <button
                         onClick={() => openEditModal(admin)}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="p-2 rounded-md text-indigo-600 hover:text-indigo-900 hover:bg-indigo-50"
                         title="Edit admin"
                       >
                         <Pencil className="h-5 w-5" />
@@ -274,7 +278,7 @@ const Admins = () => {
                       
                       <button
                         onClick={() => handleDelete(admin._id, admin.name)}
-                        className="text-red-600 hover:text-red-900"
+                        className="p-2 rounded-md text-red-600 hover:text-red-900 hover:bg-red-50"
                         title="Delete admin"
                       >
                         <Trash2 className="h-5 w-5" />

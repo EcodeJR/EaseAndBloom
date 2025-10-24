@@ -110,13 +110,16 @@ const Header = () => {
         <div className="flex justify-between items-center h-16">
           {/* Left side - could add breadcrumbs here */}
           <div className="flex items-center">
-            <h2 className="text-lg font-semibold text-gray-900">
+            <h2 className="text-base sm:text-lg font-semibold text-gray-900 hidden sm:block">
               Admin Dashboard
+            </h2>
+            <h2 className="text-base font-semibold text-gray-900 sm:hidden">
+              Dashboard
             </h2>
           </div>
 
           {/* Right side */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {/* Notifications */}
             <div className="relative">
               <button
@@ -135,7 +138,7 @@ const Header = () => {
 
               {/* Notifications dropdown */}
               {isNotificationsOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 max-h-96 overflow-y-auto">
+                <div className="absolute right-0 mt-2 w-[70vw] max-w-sm sm:w-80 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200 max-h-96 overflow-y-auto">
                   <div className="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
                     <h3 className="text-sm font-medium text-gray-900">Notifications</h3>
                     {unreadCount > 0 && (
@@ -237,7 +240,7 @@ const Header = () => {
 
               {/* Dropdown menu */}
               {isProfileOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                <div className="absolute right-0 mt-2 w-56 sm:w-48 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
                   <div className="px-4 py-2 border-b border-gray-200">
                     <p className="text-sm font-medium text-gray-900">{admin?.name}</p>
                     <p className="text-xs text-gray-500">{admin?.email}</p>

@@ -128,9 +128,9 @@ const Analytics = () => {
   return (
     <div className="space-y-6">
       {/* Page header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Analytics</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Analytics</h1>
           <p className="mt-1 text-sm text-gray-500">
             Detailed performance metrics and insights
           </p>
@@ -138,14 +138,14 @@ const Analytics = () => {
 
         {activeTab !== 'overview' && (
           <div className="flex items-center space-x-2">
-            <label htmlFor="dateRange" className="text-sm font-medium text-gray-700">
+            <label htmlFor="dateRange" className="text-sm font-medium text-gray-700 whitespace-nowrap">
               Period:
             </label>
             <select
               id="dateRange"
               value={dateRange}
               onChange={(e) => setDateRange(e.target.value)}
-              className="border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-sm"
             >
               {dateRanges.map((range) => (
                 <option key={range.value} value={range.value}>
@@ -158,8 +158,8 @@ const Analytics = () => {
       </div>
 
       {/* Tab navigation */}
-      <div className="border-b border-gray-200">
-        <nav className="-mb-px flex space-x-8">
+      <div className="border-b border-gray-200 overflow-x-auto">
+        <nav className="-mb-px flex space-x-4 sm:space-x-8 min-w-max">
           {tabs.map((tab) => {
             const TabIcon = tab.icon;
             return (
@@ -172,7 +172,8 @@ const Analytics = () => {
                 } whitespace-nowrap py-2 px-1 border-b-2 font-medium text-sm flex items-center space-x-2`}
             >
               <TabIcon className="h-4 w-4" />
-              <span>{tab.name}</span>
+              <span className="hidden sm:inline">{tab.name}</span>
+              <span className="sm:hidden">{tab.name.split(' ')[0]}</span>
             </button>
             );
           })}
@@ -307,10 +308,10 @@ const OverviewTab = ({ analytics }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+            <h3 className="text-base sm:text-lg leading-6 font-medium text-gray-900 mb-4">
               Views Trend (Last 30 Days)
             </h3>
-            <div className="h-64" style={{ minHeight: '256px' }}>
+            <div className="h-48 sm:h-64" style={{ minHeight: '192px' }}>
               {isMounted && viewsChartData.length > 0 ? (
                 <ResponsiveContainer width="100%" height="100%" minHeight={256}>
                   <LineChart data={viewsChartData}>
@@ -338,10 +339,10 @@ const OverviewTab = ({ analytics }) => {
 
         <div className="bg-white shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
+            <h3 className="text-base sm:text-lg leading-6 font-medium text-gray-900 mb-4">
               Content Distribution
             </h3>
-            <div className="h-64" style={{ minHeight: '256px' }}>
+            <div className="h-48 sm:h-64" style={{ minHeight: '192px' }}>
               {isMounted && ((analytics.overview?.totalBlogs || 0) + (analytics.overview?.publishedStories || 0) + (analytics.overview?.pendingStories || 0)) > 0 ? (
                 <ResponsiveContainer width="100%" height="100%" minHeight={256}>
                   <PieChart>
