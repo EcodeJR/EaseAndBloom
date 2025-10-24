@@ -28,24 +28,24 @@ export default function MissionVisionSection() {
 
         <div className="grid md:grid-cols-2 gap-12 mb-16">
           <div className="text-start md:text-left flex">
-            <div className="text-purple-500 text-2xl mr-6 p-3 bg-white rounded-xl shadow h-fit"><FiTarget /></div>
+            <div className="text-pink-500 text-2xl mr-6 p-3 bg-white rounded-xl shadow h-fit"><FiEye /></div>
             <div className="flex flex-col items-start justify-start mb-4">
               
-              <h3 className="text-2xl font-light text-gray-900 text-center my-4">Our Mission</h3>
+              <h3 className="text-2xl font-light text-gray-900 text-center my-4">Our Vision</h3>
               <p className="text-gray-600 text-lg font-light leading-relaxed">
-              To create a <span className="text-purple-600">safe and empowering community</span> for women to freely discuss menstrual health, while providing <span className="font-bold">sustainable access to period care</span> for underserved communities.
+              To create a <span className="text-pink-500">safe and empowering community</span> for women to freely discuss menstrual health, while providing <span className="font-bold">sustainable access to period care</span> for underserved communities.
             </p>
             </div>
             
           </div>
 
           <div className="text-start md:text-left flex">
-            <div className="text-pink-500 text-2xl mr-6 p-3 bg-white rounded-xl shadow h-fit"><FiEye /></div>
+            <div className="text-purple-500 text-2xl mr-6 p-3 bg-white rounded-xl shadow h-fit"><FiTarget /></div>
             <div className="flex flex-col items-start justify-start mb-4">
               
-              <h3 className="text-2xl font-light text-gray-900 text-center my-4">Our Vision</h3>
+              <h3 className="text-2xl font-light text-gray-900 text-center my-4">Our Mission</h3>
               <p className="text-gray-600 text-lg font-light leading-relaxed">
-              To <span className="text-pink-500">end period shame globally</span> and ensure no woman ever feels alone or unworthy. We envision a world where every woman has access to both <b className="font-bold">emotional support and practical care.</b>
+              To <span className="text-purple-600">end period shame globally</span> and ensure no woman or girl ever feels alone, unworthy, or silenced during her menstrual journey.
             </p>
             </div>
             

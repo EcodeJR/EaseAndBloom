@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.example
+yarn.lock
 
 # Editor directories and files
 .vscode/*

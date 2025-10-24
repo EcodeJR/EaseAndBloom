@@ -1,13 +1,7 @@
 import './App.css';
-import BenefitsSection from './components/BenefitsSection';
-import CoreValuesSection from './components/CoreValuesSection';
-import Footer from './components/Footer';
-import HeroSlider from './components/HeroSlider';
-import JoinMovementSection from './components/JoinMovementSection';
-import MainContent from './components/MainContent';
-import MissionVisionSection from './components/MissionVisionSection';
-import Navigation from './components/Navigation';
-import OurStorySection from './components/OurStorySection';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import AnimatedRoutes from './components/AnimatedRoutes';
 import { useState, useEffect } from 'react';
 import LoadingScreen from './components/LoadingScreen';
 
@@ -24,17 +18,37 @@ function App() {
   }
 
   return (
-    <div style={{ margin: 0, padding: 0 }}>
-      <Navigation />
-      <HeroSlider />
-      <OurStorySection />
-      {/* <MainContent /> */}
-      <MissionVisionSection />
-      <CoreValuesSection />
-      <BenefitsSection />
-      <JoinMovementSection />
-      <Footer />
-    </div>
+    <Router>
+      <div className="App">
+        <AnimatedRoutes />
+        
+        {/* Toast notifications */}
+        <Toaster
+          position="top-right"
+          toastOptions={{
+            duration: 4000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
+              duration: 3000,
+              iconTheme: {
+                primary: '#10B981',
+                secondary: '#fff',
+              },
+            },
+            error: {
+              duration: 5000,
+              iconTheme: {
+                primary: '#EF4444',
+                secondary: '#fff',
+              },
+            },
+          }}
+        />
+      </div>
+    </Router>
   );
 }
 

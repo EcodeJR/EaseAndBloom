@@ -27,23 +27,23 @@ export default function BenefitsSection() {
 
   const benefits = [
     {
-      title: "Daily Emotional Support",
-      description: "Check-ins and genuine understanding from women who get it.",
+      title: "Gentle Daily Check-ins",
+      description: "Emotional support and genuine understanding from women who get it.",
       icon: <MdChatBubbleOutline />,
     },
     {
-      title: "Educational Wellness Content",
-      description: "Access to judgment-free resources on menstrual health.",
+      title: "Trusted Wellness Education",
+      description: "Access to judgment-free resources on menstrual health and wellness.",
       icon: <FiBookOpen />,
     },
     {
-      title: "A Safe Space to Heal",
-      description: "Vent, share, ask questions, or find comfort in our community.",
+      title: "A Safe Space to Be",
+      description: "Vent, share, ask questions, or simply be yourself in our community.",
       icon: <FaRegHeart />,
     },
     {
-      title: "Pad Drives & Outreach",
-      description: "Meaningful initiatives for underserved communities.",
+      title: "Give Back Opportunities",
+      description: "Meaningful initiatives through pad drives and community outreach.",
       icon: <TbUsers />,
     },
   ]
@@ -53,10 +53,19 @@ export default function BenefitsSection() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 benefit-item" data-index="-1">
           <span className={`text-sm font-medium text-purple-500 tracking-wider uppercase mb-4 block ${visibleIndexes.includes(-1) ? 'animate-fade-in-up' : 'opacity-0'}`}>Our Sisterhood</span>
-          <h2 className={`text-4xl md:text-5xl font-light text-gray-900 ${visibleIndexes.includes(-1) ? 'animate-fade-in-up' : 'opacity-0'}`}>Benefits of Joining</h2>
+          <h2 className={`text-4xl md:text-5xl font-light text-gray-900 mb-6 ${visibleIndexes.includes(-1) ? 'animate-fade-in-up' : 'opacity-0'}`}>Why Join Ease & Bloom?</h2>
+          <p className={`text-xl md:text-2xl text-gray-700 font-light leading-relaxed max-w-4xl mx-auto ${visibleIndexes.includes(-1) ? 'animate-fade-in-up' : 'opacity-0'}`}>
+            Because every woman deserves more than just pads or pain relief,<br />
+            she deserves a place to be <span className="text-pink-500 font-medium">seen, supported, and heard</span>.
+          </p>
         </div>
 
         <div className="w-full px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h3 className="text-2xl md:text-3xl font-light text-gray-800 mb-8">
+              When you join us, you'll get:
+            </h3>
+          </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16 w-full">
             {benefits.map((benefit, index) => (
               <div 
@@ -83,10 +92,13 @@ export default function BenefitsSection() {
         </div>
 
         <div className={`max-w-4xl mx-auto bg-gradient-to-tr from-purple-100 via-pink-100 to-rose-100 rounded-3xl p-12 border border-gray-200 text-center benefit-item ${visibleIndexes.includes(benefits.length) ? 'animate-fade-in-up' : 'opacity-0'}`} data-index={benefits.length}>
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-4">A Note For You</h3>
-          <p className="text-gray-700 font-light leading-relaxed text-2xl">
-            This space is for <span className="text-pink-500 font-medium">all women</span>. Whether you struggle with period issues or not, you are welcome here.{' '}
-            <span className="text-purple-600 font-medium">This is your space too</span>.
+          <h3 className="text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 mb-6">Plus...</h3>
+          <p className="text-gray-700 font-light leading-relaxed text-xl md:text-2xl mb-4">
+            <span className="text-pink-500 font-medium">Early invites</span> to share your story, volunteer, or lead with love.
+          </p>
+          <p className="text-gray-600 font-light leading-relaxed text-lg md:text-xl">
+            This space is for <span className="text-purple-600 font-medium">all women</span>. Whether you struggle with period issues or not, you are welcome here.{' '}
+            <span className="text-pink-500 font-medium">This is your space too</span>.
           </p>
         </div>
       </div>

@@ -1,0 +1,16 @@
+{
+  "name": "Ease and Bloom Backend",
+  "type": "node",
+  "request": "launch",
+  "program": "${workspaceFolder}/server.js",
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "envFile": "${workspaceFolder}/.env",
+  "console": "integratedTerminal",
+  "restart": true,
+  "runtimeExecutable": "node",
+  "skipFiles": [
+    "<node_internals>/**"
+  ]
+}

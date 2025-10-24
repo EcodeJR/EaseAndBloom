@@ -4,7 +4,7 @@ import BenefitsSection from "../components/BenefitsSection"
 import CoreValuesSection from "../components/CoreValuesSection"
 import Footer from "../components/Footer"
 import HeroSlider from "../components/HeroSlider"
-import JoinMovementSection from "../components/JoinMovementSection"
+import JoinCommunitySection from "../components/JoinCommunitySection"
 import LoadingScreen from "../components/LoadingScreen"
 import MainContent from "../components/MainContent"
 import MissionVisionSection from "../components/MissionVisionSection"
@@ -21,7 +21,7 @@ const Page = () => (
     <MissionVisionSection />
     <CoreValuesSection />
     <OurStorySection />
-    <JoinMovementSection />
+    <JoinCommunitySection />
     <Footer />
   </Layout>
 )

@@ -1,9 +1,9 @@
-import { FaRegHeart } from "react-icons/fa";
-import { RiTelegram2Line } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa";
 import { FiFacebook } from "react-icons/fi";
-import { MdOutlineMailOutline } from "react-icons/md";
 import { useRef, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa6";
 
 export default function Footer() {
   const footerRef = useRef(null);
@@ -32,9 +32,11 @@ export default function Footer() {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-6">
-              <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 rounded-xl flex items-center justify-center">
-                <FaRegHeart className="text-white text-xl" />
-              </div>
+              <img 
+                src="/easenbloom2.svg" 
+                alt="Ease & Bloom Logo" 
+                className="w-12 h-12"
+              />
               <span className="text-white font-light text-3xl">
                 Ease & Bloom
               </span>
@@ -81,36 +83,36 @@ export default function Footer() {
             <h3 className="text-white text-xl font-light mb-6">Explore</h3>
             <ul className="space-y-4">
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/our-story"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Our Story
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/blog"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Mission & Vision
-                </a>
+                  Blog
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/share-story"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Benefits
-                </a>
+                  Share Your Story
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
+                <Link
+                  to="/waitlist"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Get Involved
-                </a>
+                  Join Waitlist
+                </Link>
               </li>
             </ul>
           </div>
@@ -121,16 +123,25 @@ export default function Footer() {
             <ul className="space-y-4">
               <li>
                 <a
-                  href="#"
+                  href="https://x.com/_easeandbloom?s=21&t=ugcb_jYgY45NnGc5HyN1_g"
                   className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
                 >
-                  <RiTelegram2Line className="text-pink-400" />
-                  Telegram
+                  <FaXTwitter className="text-pink-400" />
+                  Twitter
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/gluconfectioneries/"
+                  className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <FaLinkedin className="text-pink-400" />
+                  LinkedIn
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/share/BARfkQZx2k"
                   className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <FaInstagram className="text-pink-400" />
@@ -139,14 +150,14 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/share/15H6CWb3tW/?mibextid=wwXIfr"
                   className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
                 >
                   <FiFacebook className="text-pink-400" />
                   Facebook
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   href="#"
                   className="text-gray-400 hover:text-white transition-colors flex items-center gap-2"
@@ -154,13 +165,13 @@ export default function Footer() {
                   <MdOutlineMailOutline className="text-pink-400" />
                   Email
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
 
         {/* Newsletter Section */}
-        <div className="border-t border-gray-700 mt-12 pt-12">
+        {/* <div className="border-t border-gray-700 mt-12 pt-12">
           <div className="text-center max-w-2xl mx-auto">
             <h3 className="text-white text-2xl font-light mb-4">
               Stay Connected
@@ -171,17 +182,15 @@ export default function Footer() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-slate-800 border border-gray-600 rounded-full text-white placeholder-gray-400 focus:outline-none focus:border-pink-400 transition-colors"
-              />
-              <button className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-medium hover:from-pink-600 hover:to-purple-700 transition-all duration-300 hover:scale-105">
-                Subscribe
-              </button>
+              <Link 
+                to="/waitlist"
+                className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-medium hover:from-pink-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 text-center"
+              >
+                Join Our Waitlist
+              </Link>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-700 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
