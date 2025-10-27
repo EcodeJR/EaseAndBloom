@@ -1,12 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Users, Shield, Sparkles } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import StoryCard from '../components/StoryCard';
+import StoriesGridCarousel from '../components/StoriesGridCarousel';
+import StoryDetailModal from '../components/StoryDetailModal';
 
 const OurStory = () => {
   const sectionRef = useRef(null);
   const [visible, setVisible] = useState(false);
+  const [selectedStory, setSelectedStory] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const ourStory = {
+    title: "The Silence",
+    content: `There's a silence that surrounds women's pain. It lingers in classrooms, where girls shift uncomfortably in blood-stained uniforms. In hospital waiting rooms, where no one explains why the bleeding won't stop.
+
+At seventeen, I bled for weeks. Not metaphorically, literally. The kind of bleeding that interrupts exams, friendships, daily life. I missed school. I lost weight. I felt afraid of my own body.
+
+But what stayed with me most wasn't the pain. It was the silence. No one talked about it. Not the doctors. Not my teachers. Not even my friends. I thought I was cursed. I thought I was alone.
+
+But I wasn't. There are millions of girls and women who carry this quiet suffering, folding tissue paper into their underwear, keeping extra skirts in their school bags, hiding pain with polite smiles.
+
+Ease & Bloom was born from that silence. It was born for the girl in the bathroom stall, crying softly. For the woman who never had the words to explain her pain. For every cycle we were told to hide.
+
+This is our soft place to land. Our circle of care. Our community of truth-telling, healing, and rising.`,
+    category: "Our Story",
+    submitterName: "Ease & Bloom Team",
+    isAnonymous: false,
+    submittedAt: null
+  };
+
+  const handleReadStory = (story) => {
+    setSelectedStory(story);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedStory(null);
+  };
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -25,11 +59,13 @@ const OurStory = () => {
       
       {/* Hero Section */}
       <div className="relative min-h-[60vh] flex items-center justify-center overflow-hidden">
-        {/* Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/80 via-purple-900/80 to-indigo-900/80">
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&h=1080&fit=crop&q=80" 
+            alt="Our Story Background"
+            className="w-full h-full object-cover brightness-75"
+          />
         </div>
         
         {/* Hero Content */}
@@ -63,159 +99,18 @@ const OurStory = () => {
           visible ? "animate-fade-in-up" : "opacity-0"
         }`}
       >
-        <div className="max-w-4xl mx-auto">
-          {/* Opening */}
-          <div className="text-center mb-16">
-            <span className="text-sm font-medium text-pink-500 tracking-wider uppercase mb-4 block">
-              The Silence
-            </span>
-            <h2 className="text-4xl md:text-6xl font-light text-gray-900 mb-8">
-              There's a silence that surrounds <span className="text-pink-500">women's pain</span>
-            </h2>
-          </div>
-
-          {/* Story Sections */}
-          <div className="space-y-16">
-            {/* First Section */}
-            <div className="bg-gray-50/50 p-8 rounded-3xl shadow-sm">
-              <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
-                It lingers in classrooms, where girls shift uncomfortably in blood-stained uniforms.
-              </p>
-              <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
-                In hospital waiting rooms, where no one explains why the bleeding won't stop.
-              </p>
-            </div>
-
-            {/* Personal Story */}
-            <div className="text-center">
-              <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100">
-                <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
-                  At seventeen, I bled for weeks.
-                </p>
-                <p className="text-gray-600 text-lg md:text-xl font-light leading-relaxed mb-4">
-                  Not metaphorically, literally.
-                </p>
-                <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
-                  The kind of bleeding that interrupts exams, friendships, daily life.
-                </p>
-                <div className="space-y-4">
-                  <p className="text-pink-500 font-medium text-xl md:text-2xl">
-                    I missed school. I lost weight. I felt afraid of my own body.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* The Silence */}
-            <div className="text-center">
-              <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-8">
-                But what stayed with me most wasn't the pain.
-              </h3>
-              <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-8 rounded-3xl shadow-sm">
-                <p className="text-2xl md:text-3xl font-medium text-pink-600 mb-6">
-                  It was the silence.
-                </p>
-                <div className="space-y-4 text-gray-700 text-lg md:text-xl font-light leading-relaxed">
-                  <p>No one talked about it.</p>
-                  <p>Not the doctors. Not my teachers. Not even my friends.</p>
-                  <p className="text-pink-500 font-medium">I thought I was cursed. I thought I was alone.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Realization */}
-            <div className="text-center">
-              <div className="bg-white p-8 rounded-3xl shadow-lg">
-                <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
-                  But I wasn't.
-                </p>
-                <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-8">
-                  There are millions of girls and women who carry this quiet suffering, folding tissue paper into their underwear, keeping extra skirts in their school bags, hiding pain with polite smiles.
-                </p>
-              </div>
-            </div>
-
-            {/* Birth of Ease & Bloom */}
-            <div className="text-center">
-              <h3 className="text-3xl md:text-4xl font-light text-gray-900 mb-8">
-                Ease & Bloom was born from that silence.
-              </h3>
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-8 rounded-3xl shadow-sm">
-                <div className="space-y-6 text-gray-700 text-lg md:text-xl font-light leading-relaxed">
-                  <p>It was born for the girl in the bathroom stall, crying softly.</p>
-                  <p>For the woman who never had the words to explain her pain.</p>
-                  <p className="text-purple-600 font-medium">For every cycle we were told to hide.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Final Message */}
-            <div className="text-center">
-              <div className="bg-gradient-to-r from-pink-500 to-purple-600 p-8 rounded-3xl shadow-lg text-white">
-                <h3 className="text-3xl md:text-4xl font-light mb-6">
-                  This is our soft place to land.
-                </h3>
-                <div className="space-y-4 text-lg md:text-xl font-light leading-relaxed">
-                  <p>Our circle of care.</p>
-                  <p>Our community of truth-telling, healing, and rising.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="max-w-5xl mx-auto">
+          {/* Opening Story Card */}
+          <StoryCard
+            story={ourStory}
+            size="large"
+            onReadClick={handleReadStory}
+          />
         </div>
       </section>
 
-      {/* Values Section */}
-      <section className="py-20 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="text-sm font-medium text-purple-500 tracking-wider uppercase mb-4 block">
-              Our Commitment
-            </span>
-            <h2 className="text-5xl md:text-6xl font-light text-gray-900">
-              What We Stand For
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="text-center">
-                <div className="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Heart className="h-8 w-8 text-pink-600" />
-                </div>
-                <h3 className="text-2xl font-medium text-gray-900 mb-4">Compassion</h3>
-                <p className="text-gray-600 text-lg font-light leading-relaxed">
-                  We lead with kindness and understanding in everything we do.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="text-center">
-                <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Users className="h-8 w-8 text-purple-600" />
-                </div>
-                <h3 className="text-2xl font-medium text-gray-900 mb-4">Community</h3>
-                <p className="text-gray-600 text-lg font-light leading-relaxed">
-                  A space where every woman feels seen, heard, and valued.
-                </p>
-              </div>
-            </div>
-
-            <div className="bg-white p-8 rounded-3xl shadow-sm hover:shadow-md transition-shadow duration-300">
-              <div className="text-center">
-                <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Shield className="h-8 w-8 text-indigo-600" />
-                </div>
-                <h3 className="text-2xl font-medium text-gray-900 mb-4">Safety</h3>
-                <p className="text-gray-600 text-lg font-light leading-relaxed">
-                  Creating a safe space for vulnerability and healing.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Stories Grid Carousel Section */}
+      <StoriesGridCarousel />
 
       {/* Call to Action */}
       <section className="py-20 px-6 bg-white">
@@ -257,6 +152,13 @@ const OurStory = () => {
       </section>
 
       <Footer />
+
+      {/* Story Detail Modal */}
+      <StoryDetailModal
+        story={selectedStory}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 };

@@ -2,9 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { FaRegHeart } from "react-icons/fa";
-import { TbUsers } from "react-icons/tb";
-import { TfiAnnouncement } from "react-icons/tfi";
-import { LuHandshake } from "react-icons/lu";
 import { CheckCircle, ArrowRight } from "lucide-react";
 import GoogleFormConfirmation from './GoogleFormConfirmation';
 
@@ -46,7 +43,7 @@ export default function JoinCommunitySection() {
 
   const benefits = [
     {
-      title: "Expressed Interest Intentionally",
+      title: "Express Interest Intentionally",
       description: "You've made a conscious decision to be part of our supportive community.",
       icon: <CheckCircle className="h-6 w-6 text-green-500" />,
     },
@@ -56,32 +53,9 @@ export default function JoinCommunitySection() {
       icon: <CheckCircle className="h-6 w-6 text-green-500" />,
     },
     {
-      title: "Given Consent to Join Respectfully",
+      title: "Give Consent to Join Respectfully",
       description: "You're committed to contributing positively to our sisterhood.",
       icon: <CheckCircle className="h-6 w-6 text-green-500" />,
-    },
-  ]
-
-  const actions = [
-    {
-      title: "Donate",
-      description: "Support our monthly pad drives and community initiatives.",
-      icon: <FaRegHeart />,
-    },
-    {
-      title: "Volunteer",
-      description: "Join our team of community champions and change-makers.",
-      icon: <TbUsers />,
-    },
-    {
-      title: "Spread the Word",
-      description: "Help us reach more women who need this community.",
-      icon: <TfiAnnouncement />,
-    },
-    {
-      title: "Partner with Us",
-      description: "Collaborate with like-minded organizations.",
-      icon: <LuHandshake />,
     },
   ]
 
@@ -175,16 +149,13 @@ export default function JoinCommunitySection() {
       <div className="max-w-6xl mx-auto">
         <div className={`text-center mb-16 join-action-item ${visibleIndexes.includes(-1) ? 'animate-fade-in-up' : 'opacity-0'}`} data-index="-1">
           <span className="text-sm font-medium text-pink-500 tracking-wider uppercase mb-4 block">Join Our Community</span>
-          <h2 className="text-5xl md:text-6xl font-light text-gray-900">Be Part of Our Sisterhood</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mt-6">
-            Connect with thousands of women who understand your journey. Get support, share experiences, and grow together in our safe, supportive community.
-          </p>
+          
         </div>
 
         {/* Benefits Section */}
         <div className="mb-16">
           <div className={`text-center mb-12 join-action-item ${visibleIndexes.includes(10) ? 'animate-fade-in-up' : 'opacity-0'}`} data-index="10">
-            <h3 className="text-3xl font-semibold text-gray-900 mb-4">This way, every member has:</h3>
+            <h3 className="text-3xl font-semibold text-gray-900 mb-4">Every member should:</h3>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
@@ -201,23 +172,8 @@ export default function JoinCommunitySection() {
           </div>
         </div>
 
-        {/* Action Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {actions.map((action, index) => (
-            <div
-              key={index}
-              className={`bg-white border-[1px] border-white p-9 rounded-2xl text-center hover:bg-gray-50 hover:border-gray-200 hover:border-[1px] transition-bg flex flex-col items-center justify-center font-light join-action-item ${visibleIndexes.includes(index) ? 'animate-fade-in-up' : 'opacity-0'}`}
-              data-index={index}
-            >
-              <div className="text-3xl mb-4 text-pink-500 bg-gray-100 rounded-xl p-4">{action.icon}</div>
-              <h3 className="text-2xl font-semibold text-gray-900 mb-3">{action.title}</h3>
-              <p className="text-gray-600 leading-relaxed text-base">{action.description}</p>
-            </div>
-          ))}
-        </div>
-
         {/* CTA Section */}
-        <div className={`bg-gradient-to-tr from-purple-600 via-pink-500 to-rose-500 p-12 lg:p-20 rounded-3xl text-center text-white max-w-2xl mx-auto join-action-item ${visibleIndexes.includes(actions.length) ? 'animate-fade-in-up' : 'opacity-0'}`} data-index={actions.length}>
+        <div className={`bg-gradient-to-tr from-purple-600 via-pink-500 to-rose-500 p-12 lg:p-20 rounded-3xl text-center text-white max-w-2xl mx-auto join-action-item ${visibleIndexes.includes(30) ? 'animate-fade-in-up' : 'opacity-0'}`} data-index="30">
           <h3 className="text-4xl font-light mb-4">Ready to Join?</h3>
           <p className="text-xl my-8 opacity-90">
             Connect with thousands of women who understand. Your journey to healing and sisterhood starts here.

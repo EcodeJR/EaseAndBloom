@@ -7,7 +7,7 @@ const slides = [
 	{
 		id: 1,
 		label: "WELCOME TO",
-		title: "Your Period Bestie",
+		title: "Ease & Bloom",
 		description:
 			"A safe, supportive community where women feel seen, heard, and held—especially during their most vulnerable moments.",
 		image:
@@ -94,9 +94,8 @@ export default function HeroSlider() {
 				<img
 					src={slides[currentSlide].image || "/placeholder.svg"}
 					alt={slides[currentSlide].title}
-					className="w-full h-full object-cover"
+					className="w-full h-full object-cover brightness-75"
 				/>
-				<div className="absolute inset-0 bg-black/40"></div>
 			</div>
 
 			{/* Content */}

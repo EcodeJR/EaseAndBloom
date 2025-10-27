@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronLeft, ChevronRight, Calendar, User, Eye, ArrowRight } from 'lucide-react';
+import { Calendar, User, Eye, ArrowRight } from 'lucide-react';
 import BlogDetailModal from './BlogDetailModal';
 import LoadingSpinner from './LoadingSpinner';
 import { blogsAPI } from '../services/api';
 
 const BlogsSection = () => {
-  const [blogs, setBlogs] = useState([]);
   const [recentBlog, setRecentBlog] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -120,12 +118,10 @@ const BlogsSection = () => {
           views: blog.views || 0
         }));
         
-        setBlogs(transformedBlogs);
         setRecentBlog(transformedBlogs[0]); // Most recent blog
       } else {
         console.log('⚠️ No blogs found in backend, using dummy data');
         // Fallback to dummy data
-        setBlogs(dummyBlogs.slice(1)); // All except the first one
         setRecentBlog(dummyBlogs[0]); // First one as recent
       }
     } catch (error) {
@@ -133,23 +129,10 @@ const BlogsSection = () => {
       console.error('❌ Error details:', error);
       console.log('🔄 Falling back to dummy data');
       // Fallback to dummy data
-      setBlogs(dummyBlogs.slice(1));
       setRecentBlog(dummyBlogs[0]);
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % blogs.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + blogs.length) % blogs.length);
-  };
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
   };
 
   const handleBlogClick = (blog) => {
@@ -160,19 +143,6 @@ const BlogsSection = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedBlog(null);
-  };
-
-  const getCurrentBlogIndex = () => {
-    return blogs.findIndex(blog => blog._id === selectedBlog?._id);
-  };
-
-  const handleBlogNavigation = (direction) => {
-    const currentIndex = getCurrentBlogIndex();
-    if (direction === 'prev' && currentIndex > 0) {
-      setSelectedBlog(blogs[currentIndex - 1]);
-    } else if (direction === 'next' && currentIndex < blogs.length - 1) {
-      setSelectedBlog(blogs[currentIndex + 1]);
-    }
   };
 
   const formatDate = (dateString) => {
@@ -264,122 +234,17 @@ const BlogsSection = () => {
                   </button>
                 </div>
               </div>
+              
             </div>
-          </div>
-        )}
-
-
-        {/* Blogs Grid Carousel - Compact Cards */}
-        {blogs.length > 0 && (
-          <div className="relative">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-900">More Articles</h3>
+            <div className="flex justify-center mt-6">
               <Link
                 to="/blog"
-                className="flex items-center text-sm font-semibold text-indigo-600 hover:text-indigo-700 transition-colors"
+                className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
               >
-                View All
-                <ArrowRight className="h-4 w-4 ml-1" />
+                View All Blogs
+                <ArrowRight className="h-4 w-4 ml-2 transition-transform group-hover:translate-x-1" />
               </Link>
             </div>
-
-            <div className="relative">
-              <div className="overflow-hidden">
-                <div className="flex transition-transform duration-500 ease-out" 
-                     style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-                  {blogs.map((blog) => (
-                    <div key={blog._id} className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-3">
-                      <div
-                        className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 h-full border border-gray-100"
-                      >
-                        {/* Compact Image */}
-                        <div className="relative overflow-hidden">
-                          <div className="aspect-[16/9]">
-                            <img
-                              src={blog.featuredImage?.url || blog.featuredImage || blog.image}
-                              alt={blog.title}
-                              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                          </div>
-                          <div className="absolute top-2 left-2">
-                            <span className="bg-white/95 backdrop-blur-sm text-gray-900 px-2.5 py-1 rounded-lg text-xs font-bold shadow-md">
-                              {blog.categories?.[0] || 'Article'}
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Compact Content */}
-                        <div className="p-4">
-                          <h4 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-pink-600 transition-colors">
-                            {blog.title}
-                          </h4>
-                          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                            {blog.excerpt}
-                          </p>
-
-                          <div className="flex items-center justify-between text-xs text-gray-500 mb-3">
-                            <div className="flex items-center gap-2">
-                              <div className="flex items-center">
-                                <User className="h-3 w-3 mr-1" />
-                                <span className="truncate max-w-[80px]">{blog.author}</span>
-                              </div>
-                              <span>•</span>
-                              <div className="flex items-center">
-                                <Eye className="h-3 w-3 mr-1" />
-                                <span>{blog.views?.toLocaleString() || '0'}</span>
-                              </div>
-                            </div>
-                          </div>
-
-                          <button
-                            onClick={() => handleBlogClick(blog)}
-                            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 px-3 rounded-lg text-sm font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 flex items-center justify-center group/btn"
-                          >
-                            <span>Read More</span>
-                            <ArrowRight className="h-3.5 w-3.5 ml-1.5 transition-transform group-hover/btn:translate-x-0.5" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Minimal Navigation */}
-              {blogs.length > 3 && (
-                <>
-                  <button
-                    onClick={prevSlide}
-                    className="absolute -left-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 z-10 hover:scale-110"
-                  >
-                    <ChevronLeft className="h-5 w-5 text-gray-700" />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    className="absolute -right-4 top-1/2 transform -translate-y-1/2 bg-white rounded-full p-2 shadow-lg hover:shadow-xl transition-all duration-300 z-10 hover:scale-110"
-                  >
-                    <ChevronRight className="h-5 w-5 text-gray-700" />
-                  </button>
-                </>
-              )}
-            </div>
-
-            {/* Minimal Dots */}
-            {blogs.length > 3 && (
-              <div className="flex justify-center gap-1.5 mt-6">
-                {Array.from({ length: Math.ceil(blogs.length / 3) }).map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index * 3)}
-                    className={`h-1.5 rounded-full transition-all duration-300 ${
-                      Math.floor(currentIndex / 3) === index
-                        ? 'w-6 bg-gradient-to-r from-pink-500 to-purple-600'
-                        : 'w-1.5 bg-gray-300 hover:bg-gray-400'
-                    }`}
-                  />
-                ))}
-              </div>
-            )}
           </div>
         )}
 
@@ -388,10 +253,6 @@ const BlogsSection = () => {
           blog={selectedBlog}
           isOpen={isModalOpen}
           onClose={closeModal}
-          onPrevious={() => handleBlogNavigation('prev')}
-          onNext={() => handleBlogNavigation('next')}
-          hasPrevious={getCurrentBlogIndex() > 0}
-          hasNext={getCurrentBlogIndex() < blogs.length - 1}
         />
       </div>
     </section>

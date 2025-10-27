@@ -60,7 +60,7 @@ export default function Navigation() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 cursor-pointer group">
               <img 
-                src="/easenbloom2.svg" 
+                src="../../public/E&BlogoPink.png" 
                 alt="Ease & Bloom Logo" 
                 className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
               />

@@ -12,10 +12,13 @@ const WaitlistPage = () => {
       {/* Hero Section with Background */}
       <div className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
-        <div className="absolute inset-0 bg-gradient-to-r from-indigo-900/80 via-purple-900/80 to-pink-900/80">
-          <div className="absolute inset-0 opacity-20" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M40 40c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20zm20 0c0-11-9-20-20-20s-20 9-20 20 9 20 20 20 20-9 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-          }}></div>
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1920&h=1080&fit=crop&q=80" 
+            alt="Waitlist Background"
+            className="w-full h-full object-cover brightness-75"
+            loading="eager"
+          />
         </div>
         
         {/* Hero Content */}
@@ -48,74 +51,9 @@ const WaitlistPage = () => {
         <div className="absolute bottom-60 right-1/3 w-14 h-14 bg-white/10 rounded-full animate-float-delayed"></div>
       </div>
 
-      {/* Features Section */}
-      <div className="bg-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Our Mobile App Will Transform Your Mental Wellness Journey
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Experience mental wellness support like never before with our innovative mobile app designed for modern life.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Heart className="h-8 w-8 text-indigo-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Always With You</h3>
-              <p className="text-gray-600">
-                Access your personalized mental wellness tools, mood tracking, and resources anywhere, anytime through our intuitive mobile app.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Instant Connection</h3>
-              <p className="text-gray-600">
-                Connect instantly with our supportive community, share experiences, and find encouragement through our mobile-first social features.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Secure & Private</h3>
-              <p className="text-gray-600">
-                Your mental health data is protected with bank-level security, end-to-end encryption, and complete privacy controls on your device.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <div className="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-8 w-8 text-yellow-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Smart Insights</h3>
-              <p className="text-gray-600">
-                Get AI-powered insights, personalized recommendations, and progress tracking based on evidence-based mental health practices.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Waitlist Section */}
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Be the First to Download Our Mobile App
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join our exclusive waitlist and get early access to the Ease & Bloom mobile app when we launch. You'll also receive exclusive updates, beta testing opportunities, and special launch offers.
-            </p>
-          </div>
-
           <WaitlistForm />
         </div>
       </div>

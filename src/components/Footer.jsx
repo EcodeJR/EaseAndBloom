@@ -33,7 +33,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-6">
               <img 
-                src="/easenbloom2.svg" 
+                src="../../public/E&BlogoPink.png" 
                 alt="Ease & Bloom Logo" 
                 className="w-12 h-12"
               />
@@ -41,11 +41,6 @@ export default function Footer() {
                 Ease & Bloom
               </span>
             </div>
-
-            <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
-              A safe, supportive community where women feel seen, heard, and
-              held—especially during their most vulnerable moments.
-            </p>
 
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-400">
@@ -71,8 +66,8 @@ export default function Footer() {
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
-                <a href="mailto:hello@easeandbloom.com">
-                  hello@easeandbloom.com
+                <a href="mailto:easeandblooom@gmail.com">
+                  easeandblooom@gmail.com
                 </a>
               </div>
             </div>
