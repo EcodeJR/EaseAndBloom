@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
+import { logo } from "../../public/E&BlogoPink.png"
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -60,7 +61,7 @@ export default function Navigation() {
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 cursor-pointer group">
               <img 
-                src="../../public/E&BlogoPink.png" 
+                src={logo}
                 alt="Ease & Bloom Logo" 
                 className="w-10 h-10 group-hover:scale-110 transition-transform duration-300"
               />

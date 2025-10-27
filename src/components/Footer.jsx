@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
+import { logo } from "../../public/E&BlogoPink.png"
 
 export default function Footer() {
   const footerRef = useRef(null);
@@ -33,7 +34,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2 mb-6">
               <img 
-                src="../../public/E&BlogoPink.png" 
+                src={logo} 
                 alt="Ease & Bloom Logo" 
                 className="w-12 h-12"
               />
