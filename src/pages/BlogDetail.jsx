@@ -30,7 +30,7 @@ const BlogDetail = () => {
         } else {
           setError(data.message || 'Failed to fetch blog');
         }
-      } catch (slugError) {
+      } catch {
         // If slug doesn't work, try to find by title (fallback)
         const { data: allBlogsData } = await blogsAPI.getAll({ limit: 100 });
         
