@@ -4,7 +4,7 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaLinkedin } from "react-icons/fa6";
-import { logo } from "../../public/E&BlogoPink.png"
+import logo from "/E&BlogoPink.png"
 
 export default function Footer() {
   const footerRef = useRef(null);

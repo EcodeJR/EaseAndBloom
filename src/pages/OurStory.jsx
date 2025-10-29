@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import StoryCard from '../components/StoryCard';
 import StoriesGridCarousel from '../components/StoriesGridCarousel';
 import StoryDetailModal from '../components/StoryDetailModal';
+import story from '/story.JPG'
 
 const OurStory = () => {
   const sectionRef = useRef(null);
@@ -62,7 +63,7 @@ This is our soft place to land. Our circle of care. Our community of truth-telli
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=1920&h=1080&fit=crop&q=80" 
+            src={story} 
             alt="Our Story Background"
             className="w-full h-full object-cover brightness-75"
           />

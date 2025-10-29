@@ -3,6 +3,7 @@ import WaitlistForm from '../components/WaitlistForm';
 import { Heart, Users, Shield, Zap } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
+import waitlist from '/waitlist.PNG'
 
 const WaitlistPage = () => {
   return (
@@ -14,9 +15,9 @@ const WaitlistPage = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1920&h=1080&fit=crop&q=80" 
+            src={waitlist} 
             alt="Waitlist Background"
-            className="w-full h-full object-cover brightness-75"
+            className="w-full h-full object-cover brightness-50"
             loading="eager"
           />
         </div>

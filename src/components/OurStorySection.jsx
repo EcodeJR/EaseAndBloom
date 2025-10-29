@@ -1,6 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom"
+import { ArrowRight } from "lucide-react"
 
 export default function OurStorySection() {
   const sectionRef = useRef(null)
@@ -36,7 +38,7 @@ export default function OurStorySection() {
         </h2>
 
         <div className="bg-white p-8 rounded-lg shadow-sm mb-8">
-          <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed mb-6">
+          <p className="text-gray-700 text-xl md:text-2xl font-light leading-relaxed">
             I was{" "}
             <span className="text-pink-500 font-medium">
               17 when I started bleeding excessively
@@ -44,15 +46,15 @@ export default function OurStorySection() {
             . It wasn't just the blood—it was the missed classes, the hospital
             visits, the shame, and the terrifying thought that I was cursed.
           </p>
-          <p className="text-purple-500 font-medium text-xl md:text-2xl mb-6">
-            I felt broken. Alone. Silent.
-          </p>
         </div>
 
-        <blockquote className="text-2xl md:text-3xl font-thin text-gray-500 italic leading-relaxed">
-          "But as I grew older, I realized something heartbreaking: I wasn't the
-          only one."
-        </blockquote>
+        <Link 
+          to="/our-story"
+          className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"
+        >
+          Read Full Story
+          <ArrowRight className="h-5 w-5" />
+        </Link>
       </div>
     </section>
   )

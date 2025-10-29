@@ -60,7 +60,7 @@ const GoogleFormConfirmation = ({ onContinue }) => {
             First, please fill out our quick registration form to join our community:
           </p>
           <a 
-            href="https://forms.gle/JuyrDjNapxkXxBir6"
+            href="https://forms.gle/yGLbuZ2oGfhc8ve16"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-200"

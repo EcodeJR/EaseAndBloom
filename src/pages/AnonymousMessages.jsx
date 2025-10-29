@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { storiesAPI } from '../services/api';
+import sharestory from '/shareyourstory.JPG';
 
 const AnonymousMessages = () => {
   const [formData, setFormData] = useState({
@@ -96,7 +97,7 @@ const AnonymousMessages = () => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1920&h=1080&fit=crop&q=80" 
+            src={sharestory} 
             alt="Share Your Story Background"
             className="w-full h-full object-cover brightness-75"
           />
