@@ -56,7 +56,7 @@ export default function Footer() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span>Building communities globally</span>
+                <span>Coming soon..</span>
               </div>
               <div className="flex items-center gap-3 text-gray-400 hover:text-white transition-colors">
                 <svg
