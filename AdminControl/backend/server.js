@@ -21,6 +21,8 @@ app.use(cors({
   origin: [
     process.env.FRONTEND_URL || 'http://localhost:5173',
     'https://ease-and-bloom.vercel.app',
+    'https://ease-and-bloom-backend-main.vercel.app',
+    'https://admin-ease-and-bloom.vercel.app',
     'https://ease-and-bloom-admin.vercel.app',
     'https://easeandbloom.org',
     'http://localhost:5173',
