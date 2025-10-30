@@ -128,4 +128,9 @@ export const notificationsAPI = {
   delete: (id) => api.delete(`/notifications/${id}`),
 };
 
+// Upload API
+export const uploadAPI = {
+  uploadImage: (data) => api.post('/upload/image', data),
+};
+
 export default api;

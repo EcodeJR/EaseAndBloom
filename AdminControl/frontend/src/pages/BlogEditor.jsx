@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 // Removed ReactQuill due to React 19 compatibility issues
-import { blogsAPI } from '../services/api.jsx';
+import { blogsAPI, uploadAPI } from '../services/api.jsx';
 import { generateSlug } from '../utils/helpers';
 import toast from 'react-hot-toast';
 import {
@@ -30,6 +30,7 @@ const BlogEditor = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
 
   const categories = [
@@ -137,21 +138,54 @@ const BlogEditor = () => {
     }));
   };
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Convert to base64 for now (in production, upload to Cloudinary)
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        setFormData(prev => ({
-          ...prev,
-          featuredImage: {
-            url: event.target.result,
-            publicId: 'temp-' + Date.now()
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error('Image size must be less than 5MB');
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please upload a valid image file');
+        return;
+      }
+
+      try {
+        setIsUploadingImage(true);
+        
+        // Convert to base64
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          try {
+            // Upload to Cloudinary via backend
+            const response = await uploadAPI.uploadImage({
+              image: event.target.result,
+              folder: 'easeandbloom/blogs'
+            });
+
+            // Set the Cloudinary image data
+            setFormData(prev => ({
+              ...prev,
+              featuredImage: response.data.data.image
+            }));
+            
+            toast.success('Image uploaded successfully');
+          } catch (error) {
+            console.error('Image upload failed:', error);
+            toast.error('Failed to upload image. Please try again.');
+          } finally {
+            setIsUploadingImage(false);
           }
-        }));
-      };
-      reader.readAsDataURL(file);
+        };
+        reader.readAsDataURL(file);
+      } catch (error) {
+        console.error('Error reading file:', error);
+        toast.error('Failed to read image file');
+        setIsUploadingImage(false);
+      }
     }
   };
 
@@ -163,6 +197,16 @@ const BlogEditor = () => {
 
     if (formData.categories.length === 0) {
       toast.error('Please select at least one category');
+      return;
+    }
+
+    if (!formData.featuredImage) {
+      toast.error('Please upload a featured image');
+      return;
+    }
+
+    if (isUploadingImage) {
+      toast.error('Please wait for image upload to complete');
       return;
     }
 
@@ -312,12 +356,18 @@ const BlogEditor = () => {
                 onChange={handleImageUpload}
                 className="hidden"
                 id="featured-image"
+                disabled={isUploadingImage}
               />
               <label
                 htmlFor="featured-image"
-                className="cursor-pointer flex flex-col items-center justify-center"
+                className={`cursor-pointer flex flex-col items-center justify-center ${isUploadingImage ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
-                {formData.featuredImage ? (
+                {isUploadingImage ? (
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+                    <p className="mt-2 text-sm text-gray-600">Uploading image...</p>
+                  </div>
+                ) : formData.featuredImage ? (
                   <div className="space-y-2">
                     <img
                       src={formData.featuredImage.url}
@@ -333,6 +383,7 @@ const BlogEditor = () => {
                       Click to upload featured image
                     </p>
                     <p className="text-xs text-gray-500">PNG, JPG up to 5MB</p>
+                    <p className="text-xs text-gray-400 mt-1">Image will be uploaded to Cloudinary</p>
                   </div>
                 )}
               </label>
