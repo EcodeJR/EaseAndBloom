@@ -50,6 +50,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/upload', require('./routes/upload'));
 app.use('/api/blogs', require('./routes/blogs'));
 app.use('/api/stories', require('./routes/stories'));
 app.use('/api/admins', require('./routes/admins'));

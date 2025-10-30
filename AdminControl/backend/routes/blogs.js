@@ -207,12 +207,20 @@ router.post('/', authenticate, requirePermission('canManageBlogs'), [
       status = 'draft'
     } = req.body;
 
-    // Upload featured image to Cloudinary
+    // Handle featured image
     let imageData;
     if (featuredImage && typeof featuredImage === 'string' && featuredImage.startsWith('data:')) {
+      // Base64 image - upload to Cloudinary (backward compatibility)
+      // NOTE: For large images, use /api/upload/image endpoint first to avoid 413 errors
       imageData = await uploadImageFromBase64(featuredImage, 'easeandbloom/blogs');
+    } else if (typeof featuredImage === 'object' && featuredImage.url) {
+      // Already uploaded to Cloudinary - use the provided object
+      imageData = featuredImage;
     } else {
-      imageData = featuredImage; // Already uploaded or no image
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid featured image format'
+      });
     }
 
     const blog = new Blog({
@@ -278,14 +286,21 @@ router.put('/:id', authenticate, requirePermission('canManageBlogs'), [
     const updateData = { ...req.body };
 
     // Handle featured image update
-    if (req.body.featuredImage && typeof req.body.featuredImage === 'string' && req.body.featuredImage.startsWith('data:')) {
-      // Delete old image
-      if (blog.featuredImage.publicId) {
-        await deleteImage(blog.featuredImage.publicId);
+    if (req.body.featuredImage) {
+      if (typeof req.body.featuredImage === 'string' && req.body.featuredImage.startsWith('data:')) {
+        // Base64 image - upload to Cloudinary (backward compatibility)
+        // NOTE: For large images, use /api/upload/image endpoint first to avoid 413 errors
+        if (blog.featuredImage.publicId) {
+          await deleteImage(blog.featuredImage.publicId);
+        }
+        updateData.featuredImage = await uploadImageFromBase64(req.body.featuredImage, 'easeandbloom/blogs');
+      } else if (typeof req.body.featuredImage === 'object' && req.body.featuredImage.url) {
+        // Already uploaded to Cloudinary - delete old and use new
+        if (blog.featuredImage.publicId && blog.featuredImage.publicId !== req.body.featuredImage.publicId) {
+          await deleteImage(blog.featuredImage.publicId);
+        }
+        updateData.featuredImage = req.body.featuredImage;
       }
-      
-      // Upload new image
-      updateData.featuredImage = await uploadImageFromBase64(req.body.featuredImage, 'easeandbloom/blogs');
     }
 
     const updatedBlog = await Blog.findByIdAndUpdate(

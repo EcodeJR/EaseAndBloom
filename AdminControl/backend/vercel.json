@@ -3,7 +3,10 @@
   "builds": [
     {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "maxDuration": 30
+      }
     }
   ],
   "routes": [
@@ -19,5 +22,11 @@
   "env": {
     "NODE_ENV": "production"
   },
-  "regions": ["iad1"]
+  "regions": ["iad1"],
+  "functions": {
+    "server.js": {
+      "maxDuration": 30,
+      "memory": 1024
+    }
+  }
 }
