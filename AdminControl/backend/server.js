@@ -29,6 +29,7 @@ app.use(cors({
     'https://admin-ease-and-bloom.vercel.app',
     'https://ease-and-bloom-admin.vercel.app',
     'https://easeandbloom.org',
+    'https://www.easeandbloom.org',
     'http://localhost:5173',
     'http://localhost:5174'
   ],
