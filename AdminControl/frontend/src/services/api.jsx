@@ -29,8 +29,25 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Only attempt refresh if:
+    // 1. Response is 401
+    // 2. Not already retried
+    // 3. Not the refresh endpoint itself
+    // 4. Not the login endpoint
+    if (
+      error.response?.status === 401 && 
+      !originalRequest._retry &&
+      !originalRequest.url?.includes('/auth/refresh') &&
+      !originalRequest.url?.includes('/auth/login')
+    ) {
       originalRequest._retry = true;
+
+      // Check if we have an access token to refresh
+      const hasAccessToken = localStorage.getItem('accessToken');
+      if (!hasAccessToken) {
+        // No token to refresh, just reject
+        return Promise.reject(error);
+      }
 
       try {
         const response = await axios.post(
@@ -47,10 +64,14 @@ api.interceptors.response.use(
         originalRequest.headers.Authorization = `Bearer ${accessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        // Refresh failed, redirect to login
+        // Refresh failed, clear auth and redirect to login
         localStorage.removeItem('accessToken');
         localStorage.removeItem('admin');
-        window.location.href = '/login';
+        
+        // Only redirect if not already on login page
+        if (!window.location.pathname.includes('/login')) {
+          window.location.href = '/login';
+        }
         return Promise.reject(refreshError);
       }
     }
