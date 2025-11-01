@@ -8,6 +8,9 @@ const connectDB = require('./config/database');
 
 const app = express();
 
+// Trust proxy - required for Vercel and other reverse proxies
+app.set('trust proxy', 1);
+
 // Connect to MongoDB (async, non-blocking)
 connectDB().catch(err => {
   console.error('Failed to connect to database:', err);
@@ -36,7 +39,9 @@ app.use(cors({
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
 app.use('/api/', limiter);
 
