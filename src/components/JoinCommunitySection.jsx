@@ -46,7 +46,7 @@ export default function JoinCommunitySection() {
             </div>
 
             <div className="bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-200 rounded-2xl p-8 mb-8">
-              <div className="flex items-start gap-4 mb-6">
+              <div className="flex flex-col md:flex-row items-start gap-4 mb-6">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                     1
@@ -71,7 +71,7 @@ export default function JoinCommunitySection() {
             </div>
 
             <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-8 mb-8">
-              <div className="flex items-start gap-4">
+              <div className="flex flex-col md:flex-row items-start gap-4">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-xl">
                     2
