@@ -83,12 +83,12 @@ export const storiesAPI = {
 
 // Waitlist API
 export const waitlistAPI = {
-  // Add email to waitlist
-  subscribe: async (email) => {
+  // Add user to waitlist
+  subscribe: async (userData) => {
     const url = `${API_BASE_URL}/api/waitlist`;
     return fetchAPI(url, {
       method: 'POST',
-      body: JSON.stringify({ email }),
+      body: JSON.stringify(userData),
     });
   },
 };

@@ -24,7 +24,7 @@ const WaitlistForm = () => {
     setIsSubmitting(true);
 
     try {
-      const { data } = await waitlistAPI.subscribe(formData.email);
+      const { data } = await waitlistAPI.subscribe(formData);
 
       if (data.success) {
         toast.success('Successfully joined the waitlist! We\'ll notify you when our mobile app launches.');
