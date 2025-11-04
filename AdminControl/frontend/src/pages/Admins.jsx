@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { adminsAPI } from '../services/api.jsx';
 import {
   Plus,
@@ -28,6 +28,8 @@ const Admins = () => {
     role: 'blog_manager',
     isActive: true,
   });
+  const [passwordError, setPasswordError] = useState('');
+  const [formErrors, setFormErrors] = useState({});
 
   const roles = [
     { value: 'super_admin', label: 'Super Admin' },
@@ -35,11 +37,7 @@ const Admins = () => {
     { value: 'story_moderator', label: 'Story Moderator' },
   ];
 
-  useEffect(() => {
-    fetchAdmins();
-  }, [currentPage]);
-
-  const fetchAdmins = async () => {
+  const fetchAdmins = useCallback(async () => {
     try {
       setIsLoading(true);
       const response = await adminsAPI.getAll({
@@ -54,18 +52,47 @@ const Admins = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage]);
+
+  useEffect(() => {
+    fetchAdmins();
+  }, [fetchAdmins]);
 
   const handleCreate = async () => {
+    // Validate form before submission
+    if (!validateForm()) {
+      return;
+    }
+
     try {
-      await adminsAPI.create(formData);
-      toast.success('Admin created successfully');
+      // Prepare payload
+      const payload = {
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        password: formData.password,
+        role: formData.role,
+      };
+      
+      await adminsAPI.create(payload);
+      toast.success('Admin created successfully! Login credentials have been sent to their email.');
       setShowModal(false);
       resetForm();
       fetchAdmins();
     } catch (error) {
       console.error('Failed to create admin:', error);
-      toast.error('Failed to create admin');
+      
+      // Handle validation errors from backend
+      if (error.response?.data?.errors) {
+        const backendErrors = {};
+        error.response.data.errors.forEach(err => {
+          backendErrors[err.path] = err.msg;
+        });
+        setFormErrors(backendErrors);
+        toast.error('Please fix the validation errors');
+      } else {
+        const errorMessage = error.response?.data?.message || 'Failed to create admin';
+        toast.error(errorMessage);
+      }
     }
   };
 
@@ -128,6 +155,8 @@ const Admins = () => {
     setShowModal(false);
     setEditingAdmin(null);
     resetForm();
+    setPasswordError('');
+    setFormErrors({});
   };
 
   const resetForm = () => {
@@ -138,6 +167,8 @@ const Admins = () => {
       role: 'blog_manager',
       isActive: true,
     });
+    setPasswordError('');
+    setFormErrors({});
   };
 
   const handleChange = (field, value) => {
@@ -145,6 +176,56 @@ const Admins = () => {
       ...prev,
       [field]: value
     }));
+    
+    // Clear field-specific error when user starts typing
+    if (formErrors[field]) {
+      setFormErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+    
+    // Validate password in real-time
+    if (field === 'password' && !editingAdmin) {
+      validatePassword(value);
+    }
+  };
+
+  const validatePassword = (password) => {
+    if (!password || password.length === 0) {
+      setPasswordError('Password is required');
+      return false;
+    } else if (password.length < 8) {
+      setPasswordError(`Password must be at least 8 characters (currently ${password.length})`);
+      return false;
+    } else {
+      setPasswordError('');
+      return true;
+    }
+  };
+
+  const validateForm = () => {
+    const errors = {};
+    
+    if (!formData.name || formData.name.trim().length < 2) {
+      errors.name = 'Name must be at least 2 characters';
+    }
+    
+    if (!formData.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = 'Please enter a valid email address';
+    }
+    
+    if (!editingAdmin) {
+      if (!formData.password) {
+        errors.password = 'Password is required';
+      } else if (formData.password.length < 8) {
+        errors.password = 'Password must be at least 8 characters';
+      }
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   if (isLoading) {
@@ -365,9 +446,15 @@ const Admins = () => {
                       type="text"
                       value={formData.name}
                       onChange={(e) => handleChange('name', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                        formErrors.name ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="Admin name"
+                      required
                     />
+                    {formErrors.name && (
+                      <p className="mt-1 text-xs text-red-600">{formErrors.name}</p>
+                    )}
                   </div>
                   
                   <div>
@@ -378,9 +465,15 @@ const Admins = () => {
                       type="email"
                       value={formData.email}
                       onChange={(e) => handleChange('email', e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                        formErrors.email ? 'border-red-500' : 'border-gray-300'
+                      }`}
                       placeholder="admin@example.com"
+                      required
                     />
+                    {formErrors.email && (
+                      <p className="mt-1 text-xs text-red-600">{formErrors.email}</p>
+                    )}
                   </div>
                   
                   {!editingAdmin && (
@@ -392,12 +485,25 @@ const Admins = () => {
                         type="password"
                         value={formData.password}
                         onChange={(e) => handleChange('password', e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                        placeholder="Enter password"
+                        className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                          passwordError || formErrors.password ? 'border-red-500' : 'border-gray-300'
+                        }`}
+                        placeholder="Enter password (min. 8 characters)"
                         required
+                        minLength={8}
                       />
+                      {(passwordError || formErrors.password) && (
+                        <p className="mt-1 text-xs text-red-600">
+                          {passwordError || formErrors.password}
+                        </p>
+                      )}
+                      {!passwordError && !formErrors.password && formData.password.length > 0 && formData.password.length >= 8 && (
+                        <p className="mt-1 text-xs text-green-600">
+                          ✓ Password meets requirements
+                        </p>
+                      )}
                       <p className="mt-1 text-xs text-gray-500">
-                        Password must be at least 8 characters long
+                        Password must be at least 8 characters long. The admin will receive their login credentials via email.
                       </p>
                     </div>
                   )}
