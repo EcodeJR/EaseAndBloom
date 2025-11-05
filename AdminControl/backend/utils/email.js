@@ -4,20 +4,18 @@ const nodemailer = require('nodemailer');
 // Create email transporter
 const createTransporter = () => {
   // Support both port 465 (SSL) and 587 (STARTTLS)
-  // const port = parseInt(process.env.EMAIL_PORT || '465');
-  // const secure = port === 465; // true for 465, false for other ports like 587
+  const port = parseInt(process.env.EMAIL_PORT || '587');
+  const secure = port === 465; // true for 465, false for other ports like 587
 
-
-  // ---------- Switched to Gmail instead of Zoho ----------
   const config = {
     host: process.env.EMAIL_SERVICE,
-    // port: port,
-    // secure: secure, // Use SSL for port 465, STARTTLS for 587
+    port: port,
+    secure: secure, // Use SSL for port 465, STARTTLS for 587
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     },
-    // Zoho-specific settings
+    // Gmail/Zoho compatible settings
     tls: {
       rejectUnauthorized: true,
       minVersion: 'TLSv1.2'
@@ -28,9 +26,9 @@ const createTransporter = () => {
 
   console.log('Email transporter config:', {
     host: config.host,
-    // port: config.port,
+    port: config.port,
     user: config.auth.user,
-    // secure: config.secure
+    secure: config.secure
   });
 
   return nodemailer.createTransport(config);
