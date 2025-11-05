@@ -58,7 +58,7 @@ export default function JoinCommunitySection() {
                     Click the button below to complete our quick registration form. Please provide a valid email address.
                   </p>
                   <a 
-                    href="https://forms.gle/JuyrDjNapxkXxBir6"
+                    href="https://forms.gle/v9qFHVWnEfRa9CSPA"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-pink-500 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:from-pink-600 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg"

@@ -1,16 +1,37 @@
+/* eslint-env node */
 const nodemailer = require('nodemailer');
 
 // Create email transporter
 const createTransporter = () => {
-  return nodemailer.createTransport({
+  // Support both port 465 (SSL) and 587 (STARTTLS)
+  const port = parseInt(process.env.EMAIL_PORT || '465');
+  const secure = port === 465; // true for 465, false for other ports like 587
+
+  const config = {
     host: process.env.EMAIL_SERVICE,
-    port: 465,
-    secure: true,
+    port: port,
+    secure: secure, // Use SSL for port 465, STARTTLS for 587
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
-    }
+    },
+    // Zoho-specific settings
+    tls: {
+      rejectUnauthorized: true,
+      minVersion: 'TLSv1.2'
+    },
+    debug: process.env.NODE_ENV !== 'production', // Enable debug in development
+    logger: process.env.NODE_ENV !== 'production' // Enable logging in development
+  };
+
+  console.log('Email transporter config:', {
+    host: config.host,
+    port: config.port,
+    user: config.auth.user,
+    secure: config.secure
   });
+
+  return nodemailer.createTransport(config);
 };
 
 // Send email function
